@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  NewsApp
+
+  Created by Елизавета Ефросинина on 30/04/2023.
+  
+*/
+
+"General" = "Основные";
+"Business" = "Бизнес";
+"Tehnology" = "Технологии";
