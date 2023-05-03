@@ -1,5 +1,5 @@
 //
-//  GeneralNewsViewController.swift
+//  DitaleViewController.swift
 //  NewsApp
 //
 //  Created by Елизавета Ефросинина on 30/04/2023.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class GeneralNewsViewController: UIViewController {
+final class DitaleViewController: UIViewController {
     
     //MARK: -- GUI Variables
     private lazy var titleLabel: UILabel = {
@@ -27,7 +27,7 @@ final class GeneralNewsViewController: UIViewController {
         return view
     }()
     
-    private lazy var descriprionTextView: UITextView = {
+    private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.text = "Пальма - это, пожалуй, самое теплолюбивое дерево, которое у многих ассоциируется с райскими пляжами и жаркими странами. В любых тропических и субтропических странах, у любого тёплого моря можно найти это вечнозелёное растение. На территории России пальму можно увидеть на побережье Черного моря. Пальма растёт в Греции, Китае, Бразилии, Таиланде и многих других странах."
         textView.font = .systemFont(ofSize: 25)
@@ -56,7 +56,7 @@ final class GeneralNewsViewController: UIViewController {
     //MARK: -- Private methods
     private func setupUI() {
         view.backgroundColor = .white
-        view.addSubviews([titleLabel, dateLabel, imageView, descriprionTextView])
+        view.addSubviews([titleLabel, dateLabel, imageView, descriptionTextView])
         
         setupConstraints()
     }
@@ -77,7 +77,7 @@ final class GeneralNewsViewController: UIViewController {
             make.top.equalTo(dateLabel.snp.bottom).offset(10)
         }
         
-        descriprionTextView.snp.makeConstraints { make in
+        descriptionTextView.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(10)
             make.trailing.leading.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
