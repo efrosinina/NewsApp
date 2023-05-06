@@ -20,7 +20,7 @@ final class TabBarController: UITabBarController {
     //MARK: -- Private methods
     private func setupViewController() {
         viewControllers = [
-            setupNavigationController(rootViewController: GeneralViewController(),
+            setupNavigationController(rootViewController: GeneralViewController(viewModel: GeneralViewModel()),
                                       title: "General".localized,
                                       image: UIImage(systemName: "newspaper") ?? UIImage.add),
             setupNavigationController(rootViewController: BusinessViewController(),
@@ -30,6 +30,8 @@ final class TabBarController: UITabBarController {
                                       title: "Tehnology".localized,
                                       image: UIImage(systemName: "gyroscope") ?? UIImage.add)
         ]
+        
+        setupTabBar()
     }
     
     private func setupNavigationController(rootViewController: UIViewController,
@@ -43,5 +45,13 @@ final class TabBarController: UITabBarController {
         navigationController.navigationBar.prefersLargeTitles = true
         
         return navigationController
+    }
+    
+    private func setupTabBar() {
+        let apperance = UITabBarAppearance()
+        apperance.configureWithOpaqueBackground()
+        tabBar.scrollEdgeAppearance = apperance
+        
+        view.tintColor = .black
     }
 }

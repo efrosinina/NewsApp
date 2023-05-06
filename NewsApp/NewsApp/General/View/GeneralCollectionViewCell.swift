@@ -13,7 +13,6 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     //MARK: -- GUI Variables
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Image") ?? UIImage.add
         
         return imageView
     }()
@@ -44,6 +43,18 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: -- Methods
+    func set(article: ArticleCellViewModel) {
+        titleLabel.text = article.title
+        
+        if let data = article.imageData,
+           let image = UIImage(data: data) {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(named: "Image")
+        }
     }
     
     //MARK: -- Private Methods
