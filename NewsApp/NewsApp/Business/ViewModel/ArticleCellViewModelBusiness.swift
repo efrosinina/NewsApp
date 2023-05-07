@@ -1,23 +1,25 @@
 //
-//  ArticleCellViewModel.swift
+//  ArticleCellViewModelBusiness.swift
 //  NewsApp
 //
-//  Created by Елизавета Ефросинина on 05/05/2023.
+//  Created by Елизавета Ефросинина on 07/05/2023.
 //
 
 import UIKit
 
-struct ArticleCellViewModel {
+struct ArticleCellViewModelBusiness {
     let title: String
     let description: String
     let date: String
     let imageUrl: String
     var imageData: Data?
     
-    init(article: GeneralArticleResponseObject) {
+    init(article: BusinessArticleResponseObject) {
         title = article.title
         description = article.description
         date = article.date
         imageUrl = article.urlToImage
     }
 }
+
+

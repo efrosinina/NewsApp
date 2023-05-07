@@ -13,7 +13,6 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     //MARK: -- GUI Variables
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "Image")
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         
@@ -24,7 +23,6 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .black
         label.font = .boldSystemFont(ofSize: 16)
-        label.text = "Title here"
         label.numberOfLines = 2
         
         return label
@@ -34,7 +32,6 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .systemGray4
         label.font = .systemFont(ofSize: 14)
-        label.text = "Title here fjhfjfjjfjdfjdfhhdfjhf fdjfdj"
         label.numberOfLines = 2
         
         return label
@@ -49,6 +46,19 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: -- Methods
+    func setup(article: ArticleCellViewModelBusiness) {
+        titleLabel.text = article.title
+        descriptionLabel.text = article.description
+        
+        if let data = article.imageData,
+           let image = UIImage(data: data) {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(named: "Image")
+        }
     }
     
     //MARK: -- Private Methods

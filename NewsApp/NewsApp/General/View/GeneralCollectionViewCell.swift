@@ -28,7 +28,6 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "title"
         label.textColor = .white
         
         return label
@@ -47,6 +46,17 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     
     //MARK: -- Methods
     func set(article: ArticleCellViewModel) {
+        titleLabel.text = article.title
+        
+        if let data = article.imageData,
+           let image = UIImage(data: data) {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(named: "Image")
+        }
+    }
+    
+    func setupTitleCell(article: ArticleCellViewModelBusiness) {
         titleLabel.text = article.title
         
         if let data = article.imageData,

@@ -59,7 +59,6 @@ final class NewsViewController: UIViewController {
     init(viewModel: NewsViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -90,7 +89,6 @@ final class NewsViewController: UIViewController {
         } else {
             imageView.image = UIImage(named: "Image")
         }
-        
         setupConstraints()
     }
     
@@ -115,7 +113,6 @@ final class NewsViewController: UIViewController {
         imageView.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(edgesInset)
             make.trailing.leading.equalToSuperview().inset(edgesInset)
-           
         }
         
         descriptionLabel.snp.makeConstraints { make in

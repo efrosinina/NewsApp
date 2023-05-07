@@ -54,8 +54,6 @@ class GeneralViewController: UIViewController {
         setupUI()
     }
     
-    
-    
     //MARK: -- Private methods
     private func setupViewModel() {
         viewModel.reloadData = { [weak self] in
@@ -68,10 +66,10 @@ class GeneralViewController: UIViewController {
         }
         
         viewModel.showError = { error in
-            //TODO: -- Show alert with error
             print(error)
         }
     }
+    
     private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(searchBar)
@@ -81,6 +79,7 @@ class GeneralViewController: UIViewController {
                                 forCellWithReuseIdentifier: "GeneralCollectionViewCell")
         setupConstraints()
     }
+    
     private func setupConstraints() {
         searchBar.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -103,8 +102,8 @@ extension GeneralViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
-        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
+                                                            for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
         let article = viewModel.getArticle(for: indexPath.row)
         cell.set(article: article)
         return cell
