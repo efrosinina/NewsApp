@@ -24,12 +24,15 @@ final class NewsViewController: UIViewController {
         let label = UILabel()
         label.textColor = .black
         label.font = .boldSystemFont(ofSize: 35)
+        label.numberOfLines = 0
         
         return label
     }()
     
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
+        view.contentMode = .scaleAspectFill
+        view.layer.masksToBounds = true
         
         return view
     }()
@@ -101,22 +104,23 @@ final class NewsViewController: UIViewController {
             make.width.edges.equalToSuperview()
         }
         
-        titleLabel.snp.makeConstraints { make in
+        imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(view.snp.width)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(imageView.snp.bottom).offset(edgesInset)
+            make.leading.trailing.equalToSuperview().inset(edgesInset)
         }
         
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(edgesInset)
-            make.leading.trailing.equalToSuperview().inset(edgesInset)
-        }
-        
-        imageView.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(edgesInset)
             make.trailing.leading.equalToSuperview().inset(edgesInset)
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(edgesInset)
+            make.top.equalTo(dateLabel.snp.bottom).offset(edgesInset)
             make.trailing.leading.equalToSuperview().inset(edgesInset)
             make.bottom.equalToSuperview().inset(edgesInset)
         }
