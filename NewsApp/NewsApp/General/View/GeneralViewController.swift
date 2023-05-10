@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 class GeneralViewController: UIViewController {
-    
     //MARK: -- GUI Variables
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()

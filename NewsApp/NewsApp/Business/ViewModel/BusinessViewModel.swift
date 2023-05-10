@@ -6,13 +6,11 @@
 //
 
 import UIKit
-
 //MARK: -- Protocol
 protocol BusinessViewModelProtocol {
     var reloadData: (() -> Void)? { get set }
     var showError: ((String) -> Void)? { get set }
     var reloadCell: ((Int) -> Void)? { get set }
-    
     var numberOfCells: Int { get }
     
     func getArticle(for row: Int) -> ArticleCellViewModelBusiness
@@ -48,23 +46,23 @@ class BusinessViewModel: BusinessViewModelProtocol {
     
     //MARK: -- Private Methods
     private func loadData() {
-        APIManager.getBusinessNews { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let articles):
-                self.articles = self.convertToCellViewModel(articles)
-                self.loadImage()
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.showError?(error.localizedDescription)
+        
+            APIManager.getBusinessNews { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let articles):
+                    self.articles = self.convertToCellViewModel(articles)
+                    self.loadImage()
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        self.showError?(error.localizedDescription)
+                    }
                 }
             }
         }
-    }
     
     private func loadImage() {
-        
         for (index, article) in articles.enumerated() {
             APIManager.getImageData(url: article.imageUrl) { [weak self] result in
                 

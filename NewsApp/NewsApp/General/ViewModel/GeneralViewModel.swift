@@ -6,14 +6,12 @@
 //
 
 import UIKit
-
 //MARK: -- Protocol
 //Получение данных
 protocol GeneralViewModelProtocol {
     var reloadData: (() -> Void)? { get set } //Опциональное, чтобы при инициализации модели,не обязаны были setup значение
     var showError: ((String) -> Void)? { get set }
     var reloadCell: ((Int) -> Void)? { get set }
-    
     var numberOfCells: Int { get }
     
     func getArticle(for row: Int) -> ArticleCellViewModel

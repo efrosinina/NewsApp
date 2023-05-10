@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 final class GeneralCollectionViewCell: UICollectionViewCell {
-    
     //MARK: -- GUI Variables
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()

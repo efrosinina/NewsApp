@@ -16,7 +16,6 @@ import UIKit
 import SnapKit
 
 class BusinessViewController: UIViewController {
-    
     //MARK: -- GUI Variables
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -25,7 +24,6 @@ class BusinessViewController: UIViewController {
         layout.minimumInteritemSpacing = 5
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20,
                                            bottom: 20, right: 20)
-        
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - view.frame.height), collectionViewLayout: layout)
         
         collectionView.dataSource = self // Делегат будет сам реализовывать ViewController
@@ -38,7 +36,7 @@ class BusinessViewController: UIViewController {
     //MARK: -- Properties
     private var viewModel: BusinessViewModelProtocol
     
-    //MARK: -- Life cycle
+    //MARK: -- Initialization
     init(viewModel: BusinessViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -49,6 +47,7 @@ class BusinessViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: -- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,7 +61,7 @@ class BusinessViewController: UIViewController {
         }
         
         viewModel.reloadCell = { [weak self] row in
-            self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 1)])
+            self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
         }
         
         viewModel.showError = { error in
@@ -94,9 +93,10 @@ extension BusinessViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
+    
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return section == 0 ? 1 : viewModel.numberOfCells
+        return section == 0 ? 1 : viewModel.numberOfCells - 1
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -105,14 +105,13 @@ extension BusinessViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
                                                                 for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
-            let article = viewModel.getArticle(for: indexPath.row)
+            let article = viewModel.getArticle(for: 0)
             cell.setupTitleCell(article: article)
             return cell
-            
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell",
                                                                 for: indexPath) as? DetailsCollectionViewCell else { return UICollectionViewCell() }
-            let article = viewModel.getArticle(for: indexPath.row + 1)
+            let article = viewModel.getArticle(for: indexPath.row)
             cell.setup(article: article)
             return cell
         }

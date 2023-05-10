@@ -8,7 +8,6 @@
 import UIKit
 
 final class APIManager {
-    
     //MARK: -- Properties
     private static let apiKey = "c200d5fceabf4c948e525470c3ef3cc2"
     private static let basedUrl = "https://newsapi.org/v2/"
@@ -17,7 +16,7 @@ final class APIManager {
     
     // Create url path and make request
     static func getGeneralNews(completion: @escaping (Result<[GeneralArticleResponseObject], Error>) -> ()) {
-        let stringUrl = basedUrl + topPath + "?sources=bbc-news&language=en" + "&apiKey=\(apiKey)"
+        let stringUrl = basedUrl + path + "?sources=bbc-news&language=en" + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         
@@ -32,7 +31,7 @@ final class APIManager {
     
     //MARK: -- Methods
     static func getBusinessNews(completion: @escaping (Result<[BusinessArticleResponseObject], Error>) -> ()) {
-        let stringUrl = basedUrl + topPath + "?sources=bbc-news&language=en" + "&apiKey=\(apiKey)"
+        let stringUrl = basedUrl + topPath + "?category=business&language=en" + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         
@@ -41,7 +40,6 @@ final class APIManager {
                                    error: error,
                                    completion: completion)
         }
-        
         session.resume()
     }
     

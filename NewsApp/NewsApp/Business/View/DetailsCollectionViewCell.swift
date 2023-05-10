@@ -8,8 +8,7 @@
 import UIKit
 import SnapKit
 
-final class DetailsCollectionViewCell: UICollectionViewCell {
-    
+final class DetailsCollectionViewCell: UICollectionViewCell {    
     //MARK: -- GUI Variables
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -64,7 +63,6 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     //MARK: -- Private Methods
     private func setupUI() {
         addSubviews([imageView, titleLabel, descriptionLabel])
-        
         setupConstraints()
     }
     private func setupConstraints() {
