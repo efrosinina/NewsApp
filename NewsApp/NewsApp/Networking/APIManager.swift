@@ -31,7 +31,7 @@ final class APIManager {
     
     //MARK: -- Methods
     static func getBusinessNews(completion: @escaping (Result<[BusinessArticleResponseObject], Error>) -> ()) {
-        let stringUrl = basedUrl + topPath + "?category=business&language=en" + "&apiKey=\(apiKey)"
+        let stringUrl = basedUrl + path + "?sources=bbc-news&language=en" + "&apiKey=\(apiKey)"
         
         guard let url = URL(string: stringUrl) else { return }
         

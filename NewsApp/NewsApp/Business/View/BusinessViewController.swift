@@ -111,7 +111,7 @@ extension BusinessViewController: UICollectionViewDataSource {
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell",
                                                                 for: indexPath) as? DetailsCollectionViewCell else { return UICollectionViewCell() }
-            let article = viewModel.getArticle(for: indexPath.row)
+            let article = viewModel.getArticle(for: indexPath.row + 1)
             cell.setup(article: article)
             return cell
         }
@@ -122,7 +122,7 @@ extension BusinessViewController: UICollectionViewDataSource {
 extension BusinessViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        let article = viewModel.getArticle(for: indexPath.row)
+        let article = viewModel.getArticle(for: indexPath.section == 0 ? 0 : indexPath.row + 1)
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
     }
 }
