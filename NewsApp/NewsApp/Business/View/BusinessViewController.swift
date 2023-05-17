@@ -15,7 +15,7 @@
 import UIKit
 import SnapKit
 
-class BusinessViewController: UIViewController {
+final class BusinessViewController: UIViewController {
     //MARK: -- GUI Variables
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -34,10 +34,10 @@ class BusinessViewController: UIViewController {
     }()
     
     //MARK: -- Properties
-    private var viewModel: BusinessViewModelProtocol
+    private var viewModel: NewsListViewModelProtocol
     
     //MARK: -- Initialization
-    init(viewModel: BusinessViewModelProtocol) {
+    init(viewModel: NewsListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.setupViewModel()
@@ -52,6 +52,7 @@ class BusinessViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        viewModel.loadData(searchText: nil)
     }
     
     //MARK: -- Private methods
@@ -60,8 +61,8 @@ class BusinessViewController: UIViewController {
             self?.collectionView.reloadData()
         }
         
-        viewModel.reloadCell = { [weak self] row in
-            self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
+        viewModel.reloadCell = { [weak self] indexPath in
+            self?.collectionView.reloadItems(at: [indexPath])
         }
         
         viewModel.showError = { error in
@@ -91,28 +92,33 @@ class BusinessViewController: UIViewController {
 //MARK: -- UICollectionViewDataSource
 extension BusinessViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return viewModel.sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return section == 0 ? 1 : viewModel.numberOfCells - 1
+        viewModel.sections[section].items.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as?
+                ArticleCellViewModel else { return UICollectionViewCell() }
         
         if indexPath.section == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
                                                                 for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
-            let article = viewModel.getArticle(for: 0)
             cell.setupTitleCell(article: article)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell",
                                                                 for: indexPath) as? DetailsCollectionViewCell else { return UICollectionViewCell() }
+<<<<<<< Updated upstream
             let article = viewModel.getArticle(for: indexPath.row + 1)
             cell.setup(article: article)
+=======
+            cell.set(article: article)
+>>>>>>> Stashed changes
             return cell
         }
     }
@@ -122,8 +128,21 @@ extension BusinessViewController: UICollectionViewDataSource {
 extension BusinessViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
+<<<<<<< Updated upstream
         let article = viewModel.getArticle(for: indexPath.section == 0 ? 0 : indexPath.row + 1)
+=======
+        guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
+>>>>>>> Stashed changes
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        if indexPath.row == (viewModel.sections[1].items.count - 15) {
+            viewModel.loadData(searchText: nil)
+            
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  GeneralNewsResponseObject.swift
+//  NewsResponseObject.swift
 //  NewsApp
 //
 //  Created by Елизавета Ефросинина on 05/05/2023.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-struct GeneralNewsResponseObject: Codable {
+struct NewsResponseObject: Codable {
     let totalResults: Int
-    let articles: [GeneralArticleResponseObject]
+    let articles: [ArticleResponseObject]
     
     enum CodingKeys: CodingKey { // Название case будет соостветсвовать названию ключа JSON-объекта
         case totalResults

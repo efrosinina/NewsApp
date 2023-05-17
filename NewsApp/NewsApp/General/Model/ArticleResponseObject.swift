@@ -1,13 +1,13 @@
 //
-//  BusinessArticleResponceObject.swift
+//  ArticleResponseObject.swift
 //  NewsApp
 //
-//  Created by Елизавета Ефросинина on 07/05/2023.
+//  Created by Елизавета Ефросинина on 05/05/2023.
 //
 
 import UIKit
 
-struct BusinessArticleResponseObject: Codable {
+struct ArticleResponseObject: Codable {
     let title: String
     let description: String
     let urlToImage: String
