@@ -11,7 +11,7 @@ struct NewsResponseObject: Codable {
     let totalResults: Int
     let articles: [ArticleResponseObject]
     
-    enum CodingKeys: CodingKey { // Название case будет соостветсвовать названию ключа JSON-объекта
+    enum CodingKeys: CodingKey {
         case totalResults
         case articles
     }

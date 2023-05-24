@@ -1,5 +1,5 @@
 //
-//  TehnologyViewController.swift
+//  TechnologyViewController.swift
 //  NewsApp
 //
 //  Created by Елизавета Ефросинина on 30/04/2023.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class TehnologyViewController: UIViewController {
+final class TechnologyViewController: UIViewController {
     //MARK: -- GUI Variables
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -16,11 +16,11 @@ final class TehnologyViewController: UIViewController {
         layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 5
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20,
-                                          bottom: 20, right: 20)
+                                           bottom: 20, right: 20)
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - view.frame.height), collectionViewLayout: layout)
         
-        collectionView.dataSource = self // Делегат будет сам реализовывать ViewController
-        collectionView.delegate = self //Чтобы обрабатывать нажатие на ячейки
+        collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.backgroundColor = .white
         
         return collectionView
@@ -34,7 +34,6 @@ final class TehnologyViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.setupViewModel()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +47,7 @@ final class TehnologyViewController: UIViewController {
         viewModel.loadData(searchText: nil)
     }
     
+    //MARK: -- Private Methods
     private func setupViewModel() {
         viewModel.reloadData = { [weak self] in
             self?.collectionView.reloadData()
@@ -58,7 +58,7 @@ final class TehnologyViewController: UIViewController {
         }
         
         viewModel.showError = { error in
-            print(error)
+            self.showAlert()
         }
     }
     
@@ -80,7 +80,7 @@ final class TehnologyViewController: UIViewController {
 }
 
 //MARK: -- UICollectionViewDataSource
-extension TehnologyViewController: UICollectionViewDataSource {
+extension TechnologyViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.sections.count
     }
@@ -91,7 +91,6 @@ extension TehnologyViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as?
                 ArticleCellViewModel,
               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
@@ -102,7 +101,7 @@ extension TehnologyViewController: UICollectionViewDataSource {
 }
 
 //MARK: -- UICollectionViewDelegate
-extension TehnologyViewController: UICollectionViewDelegate {
+extension TechnologyViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
@@ -111,7 +110,7 @@ extension TehnologyViewController: UICollectionViewDelegate {
 }
 
 //MARK: -- UICollectionViewDelegateFlowLayout
-extension TehnologyViewController: UICollectionViewDelegateFlowLayout {
+extension TechnologyViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

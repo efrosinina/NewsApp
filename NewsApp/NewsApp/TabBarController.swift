@@ -8,7 +8,6 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
-    
     //MARK: -- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +25,7 @@ final class TabBarController: UITabBarController {
             setupNavigationController(rootViewController: BusinessViewController(viewModel: BusinessViewModel()),
                                       title: "Business".localized,
                                       image: UIImage(systemName: "briefcase") ?? UIImage.add),
-            setupNavigationController(rootViewController: TehnologyViewController(viewModel: TehnologyViewModel()),
+            setupNavigationController(rootViewController: TechnologyViewController(viewModel: TechnologyViewModel()),
                                       title: "Tehnology".localized,
                                       image: UIImage(systemName: "gyroscope") ?? UIImage.add)
         ]
@@ -50,7 +49,6 @@ final class TabBarController: UITabBarController {
         let apperance = UITabBarAppearance()
         apperance.configureWithOpaqueBackground()
         tabBar.scrollEdgeAppearance = apperance
-        
         view.tintColor = .black
     }
 }

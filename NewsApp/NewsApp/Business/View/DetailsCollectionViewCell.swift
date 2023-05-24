@@ -51,7 +51,6 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     func set(article: ArticleCellViewModel) {
         titleLabel.text = article.title
         descriptionLabel.text = article.description
-        
         if let data = article.imageData,
            let image = UIImage(data: data) {
             imageView.image = image
@@ -65,6 +64,7 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
         addSubviews([imageView, titleLabel, descriptionLabel])
         setupConstraints()
     }
+    
     private func setupConstraints() {
         imageView.snp.makeConstraints { make in
             make.width.height.equalTo(self.frame.height)

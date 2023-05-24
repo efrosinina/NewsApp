@@ -12,6 +12,8 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     //MARK: -- GUI Variables
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
         
         return imageView
     }()
@@ -46,18 +48,6 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     //MARK: -- Methods
     func set(article: ArticleCellViewModel) {
         titleLabel.text = article.title
-        
-        if let data = article.imageData,
-           let image = UIImage(data: data) {
-            imageView.image = image
-        } else {
-            imageView.image = UIImage(named: "Image")
-        }
-    }
-    
-    func setupTitleCell(article: ArticleCellViewModel) {
-        titleLabel.text = article.title
-        
         if let data = article.imageData,
            let image = UIImage(data: data) {
             imageView.image = image
@@ -69,7 +59,6 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     //MARK: -- Private Methods
     private func setupUI() {
         addSubviews([imageView, blackView, titleLabel])
-        
         setupConstraints()
     }
     

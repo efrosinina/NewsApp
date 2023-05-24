@@ -1,5 +1,5 @@
 //
-//  TehnologyViewModel.swift
+//  TechnologyViewModel.swift
 //  NewsApp
 //
 //  Created by Елизавета Ефросинина on 13/05/2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TehnologyViewModel: NewsListViewModel {
+final class TechnologyViewModel: NewsListViewModel {
     
     override func loadData(searchText: String?) {
         super.loadData(searchText: searchText)

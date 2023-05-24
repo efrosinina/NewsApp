@@ -8,23 +8,26 @@
 import UIKit
 
 final class ArticleCellViewModel: TableCollectionViewItemsProtocol {
+    //MARK: -- Properties
     let title: String
     let description: String
     let imageUrl: String
     var date: String
     var imageData: Data?
     
+    //MARK: -- Initialization
     init(article: ArticleResponseObject) {
-        title = article.title
-        description = article.description
+        title = article.title ?? ""
+        description = article.description ?? ""
         date = article.date
-        imageUrl = article.urlToImage
+        imageUrl = article.urlToImage ?? ""
         
         if let formatDate = formatDate(dateString: date) {
             self.date = formatDate
         }
     }
     
+    //MARK: -- Private Methods
     private func formatDate(dateString: String) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

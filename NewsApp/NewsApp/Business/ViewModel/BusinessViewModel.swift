@@ -8,7 +8,6 @@
 import UIKit
 
 final class BusinessViewModel: NewsListViewModel {
-    
     //MARK: -- Methods
     override func loadData(searchText: String?) {
         super.loadData(searchText: searchText)
@@ -20,7 +19,7 @@ final class BusinessViewModel: NewsListViewModel {
     
     override func convertToCellViewModel(_ articles: [ArticleResponseObject]) {
         var viewModels = articles.map { ArticleCellViewModel(article: $0) }
-       
+        
         if sections.isEmpty {
             let firstSection = TableCollectionViewSection(items: [viewModels.removeFirst()])
             let secondSection = TableCollectionViewSection(items: viewModels)
@@ -30,4 +29,3 @@ final class BusinessViewModel: NewsListViewModel {
         }
     }
 }
-

@@ -16,28 +16,24 @@ final class APIManager {
     //MARK: -- Properties
     private static let apiKey = "c200d5fceabf4c948e525470c3ef3cc2"
     private static let basedUrl = "https://newsapi.org/v2/"
-    private static let path = "everything"
-    // private static let path = "top-headlines"
+    private static let path = "top-headlines"
     
     //MARK: -- Methods
     // Create url path and make request
     static func getNews(from category: Category, page: Int, searchText: String?, completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        
         var searchParameter = ""
         if let searchText = searchText {
             searchParameter = "&q=\(searchText)"
         }
-        let stringUrl = basedUrl + path + "?sources=bbc-news&language=en&page=\(page)" + searchParameter + "&apiKey=\(apiKey)"
         
-        //?country=RU
+        let stringUrl = basedUrl + path + "?category=\(category.rawValue)&language=en&page=\(page)" + searchParameter + "&apiKey=\(apiKey)"
+        
         guard let url = URL(string: stringUrl) else { return }
-        
         let session = URLSession.shared.dataTask(with: url) { data, _, error in
             handleResponse(data: data,
                            error: error,
                            completion: completion)
         }
-        
         session.resume()
     }
     
@@ -56,6 +52,7 @@ final class APIManager {
         session.resume()
     }
     
+    //MARK: -- Private Methods
     //Handle responce
     private static func handleResponse(data: Data?,
                                        error: Error?,

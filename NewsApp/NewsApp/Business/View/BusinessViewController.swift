@@ -5,13 +5,6 @@
 //  Created by Елизавета Ефросинина on 30/04/2023.
 //
 
-//
-//  BusinessViewController.swift
-//  NewsApp
-//
-//  Created by Елизавета Ефросинина on 30/04/2023.
-//
-
 import UIKit
 import SnapKit
 
@@ -26,8 +19,8 @@ final class BusinessViewController: UIViewController {
                                            bottom: 20, right: 20)
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - view.frame.height), collectionViewLayout: layout)
         
-        collectionView.dataSource = self // Делегат будет сам реализовывать ViewController
-        collectionView.delegate = self //Чтобы обрабатывать нажатие на ячейки
+        collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.backgroundColor = .white
         
         return collectionView
@@ -66,7 +59,7 @@ final class BusinessViewController: UIViewController {
         }
         
         viewModel.showError = { error in
-            print(error)
+            self.showAlert()
         }
     }
     
@@ -107,12 +100,14 @@ extension BusinessViewController: UICollectionViewDataSource {
         
         if indexPath.section == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
-                                                                for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
-            cell.setupTitleCell(article: article)
+                                                                for: indexPath) as? GeneralCollectionViewCell
+            else { return UICollectionViewCell() }
+            cell.set(article: article)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell",
-                                                                for: indexPath) as? DetailsCollectionViewCell else { return UICollectionViewCell() }
+                                                                for: indexPath) as? DetailsCollectionViewCell
+            else { return UICollectionViewCell() }
             cell.set(article: article)
             return cell
         }
@@ -132,7 +127,6 @@ extension BusinessViewController: UICollectionViewDelegate {
                         forItemAt indexPath: IndexPath) {
         if indexPath.row == (viewModel.sections[1].items.count - 15) {
             viewModel.loadData(searchText: nil)
-            
         }
     }
 }

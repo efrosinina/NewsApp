@@ -9,7 +9,6 @@ import UIKit
 import SnapKit
 
 final class NewsViewController: UIViewController {
-    
     //MARK: -- GUI Variables
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()

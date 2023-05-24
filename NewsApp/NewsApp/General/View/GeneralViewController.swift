@@ -26,8 +26,8 @@ final class GeneralViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - searchBar.frame.height), collectionViewLayout: layout)
         
-        collectionView.dataSource = self // Делегат будет сам реализовывать ViewController
-        collectionView.delegate = self //Чтобы обрабатывать нажатие на ячейки
+        collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.backgroundColor = .white
         
         return collectionView
@@ -66,7 +66,7 @@ final class GeneralViewController: UIViewController {
         }
         
         viewModel.showError = { error in
-            //NetworkingError.networkingError().description
+            self.showAlert()
         }
     }
     
@@ -105,7 +105,6 @@ extension GeneralViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as?
                 ArticleCellViewModel,
               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
@@ -122,7 +121,6 @@ extension GeneralViewController: UICollectionViewDelegate {
                         forItemAt indexPath: IndexPath) {
         if indexPath.row == (viewModel.sections[indexPath.section].items.count - 15) {
             viewModel.loadData(searchText: searchBar.text)
-            
         }
     }
     
@@ -137,7 +135,6 @@ extension GeneralViewController: UICollectionViewDelegate {
 extension GeneralViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
-        
         viewModel.loadData(searchText: text)
         searchBar.searchTextField.resignFirstResponder()
     }
@@ -152,7 +149,7 @@ extension GeneralViewController: UISearchBarDelegate {
 //MARK: -- UIViewController
 extension UIViewController {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            self.view.window?.endEditing(true)
-            super.touchesEnded(touches, with: event)
-        }
+        self.view.window?.endEditing(true)
+        super.touchesEnded(touches, with: event)
+    }
 }
