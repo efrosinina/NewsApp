@@ -26,7 +26,7 @@ final class TabBarController: UITabBarController {
             setupNavigationController(rootViewController: BusinessViewController(viewModel: BusinessViewModel()),
                                       title: "Business".localized,
                                       image: UIImage(systemName: "briefcase") ?? UIImage.add),
-            setupNavigationController(rootViewController: TehnologyViewController(),
+            setupNavigationController(rootViewController: TehnologyViewController(viewModel: TehnologyViewModel()),
                                       title: "Tehnology".localized,
                                       image: UIImage(systemName: "gyroscope") ?? UIImage.add)
         ]

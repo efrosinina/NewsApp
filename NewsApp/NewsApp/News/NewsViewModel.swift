@@ -25,11 +25,4 @@ final class NewsViewModel: NewsViewModelProtocol {
         date = article.date
         imageData = article.imageData
     }
-    
-    init(article: ArticleCellViewModelBusiness) {
-        title = article.title
-        description = article.description
-        date = article.date
-        imageData = article.imageData
-    }
 }

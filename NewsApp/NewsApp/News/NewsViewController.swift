@@ -49,7 +49,7 @@ final class NewsViewController: UIViewController {
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = .systemFont(ofSize: 25)
+        label.font = .systemFont(ofSize: 21)
         
         return label
     }()

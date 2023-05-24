@@ -48,7 +48,7 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: -- Methods
-    func setup(article: ArticleCellViewModelBusiness) {
+    func set(article: ArticleCellViewModel) {
         titleLabel.text = article.title
         descriptionLabel.text = article.description
         

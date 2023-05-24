@@ -55,7 +55,7 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setupTitleCell(article: ArticleCellViewModelBusiness) {
+    func setupTitleCell(article: ArticleCellViewModel) {
         titleLabel.text = article.title
         
         if let data = article.imageData,
