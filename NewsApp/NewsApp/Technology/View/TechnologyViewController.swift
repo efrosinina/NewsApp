@@ -1,5 +1,5 @@
 //
-//  BusinessViewController.swift
+//  TechnologyViewController.swift
 //  NewsApp
 //
 //  Created by Елизавета Ефросинина on 30/04/2023.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class BusinessViewController: UIViewController {
+final class TechnologyViewController: UIViewController {
     //MARK: -- GUI Variables
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -29,7 +29,7 @@ final class BusinessViewController: UIViewController {
     //MARK: -- Properties
     private var viewModel: NewsListViewModelProtocol
     
-    //MARK: -- Initialization
+    //MARK: -- Life cycle
     init(viewModel: NewsListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -40,7 +40,6 @@ final class BusinessViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: -- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,7 +47,7 @@ final class BusinessViewController: UIViewController {
         viewModel.loadData(searchText: nil)
     }
     
-    //MARK: -- Private methods
+    //MARK: -- Private Methods
     private func setupViewModel() {
         viewModel.reloadData = { [weak self] in
             self?.collectionView.reloadData()
@@ -69,8 +68,6 @@ final class BusinessViewController: UIViewController {
         
         collectionView.register(GeneralCollectionViewCell.self,
                                 forCellWithReuseIdentifier: "GeneralCollectionViewCell")
-        collectionView.register(DetailsCollectionViewCell.self,
-                                forCellWithReuseIdentifier: "DetailsCollectionViewCell")
         setupConstraints()
     }
     
@@ -83,64 +80,41 @@ final class BusinessViewController: UIViewController {
 }
 
 //MARK: -- UICollectionViewDataSource
-extension BusinessViewController: UICollectionViewDataSource {
+extension TechnologyViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        viewModel.sections[section].items.count
+        return viewModel.sections[section].items.count
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as?
-                ArticleCellViewModel else { return UICollectionViewCell() }
-        
-        if indexPath.section == 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
-                                                                for: indexPath) as? GeneralCollectionViewCell
-            else { return UICollectionViewCell() }
-            cell.set(article: article)
-            return cell
-        } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell",
-                                                                for: indexPath) as? DetailsCollectionViewCell
-            else { return UICollectionViewCell() }
-            cell.set(article: article)
-            return cell
-        }
+                ArticleCellViewModel,
+              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell",
+                                                            for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
+        cell.set(article: article)
+        return cell
     }
 }
 
 //MARK: -- UICollectionViewDelegate
-extension BusinessViewController: UICollectionViewDelegate {
+extension TechnologyViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         guard let article = viewModel.sections[indexPath.section].items[indexPath.row] as? ArticleCellViewModel else { return }
         navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
     }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        willDisplay cell: UICollectionViewCell,
-                        forItemAt indexPath: IndexPath) {
-        if indexPath.row == (viewModel.sections[1].items.count - 15) {
-            viewModel.loadData(searchText: nil)
-        }
-    }
 }
 
 //MARK: -- UICollectionViewDelegateFlowLayout
-extension BusinessViewController: UICollectionViewDelegateFlowLayout {
+extension TechnologyViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
-        let firstSectionItemSize = CGSize(width: width,
-                                          height: width)
-        let secondSectionItemSize = CGSize(width: width,
-                                           height: 100)
-        return indexPath.section == 0 ? firstSectionItemSize : secondSectionItemSize
+        return  CGSize(width: width, height: width - 120)
     }
 }
