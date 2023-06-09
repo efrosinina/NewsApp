@@ -23,6 +23,6 @@ final class NewsViewModel: NewsViewModelProtocol {
         title = article.title
         description = article.description
         date = article.date
-        imageData = article.imageData
+        imageData = article.imageData 
     }
 }

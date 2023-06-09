@@ -76,7 +76,7 @@ class NewsListViewModel: NewsListViewModelProtocol {
             for (index, item) in section.items.enumerated() {
                 guard let article = item as? ArticleCellViewModel else { return }
                 let url = article.imageUrl
-                APIManager.getImageData(url: url) { [weak self] result in
+                APIManager.getImageData(url: url ?? "") { [weak self] result in
                     
                     DispatchQueue.main.async {
                         switch result {

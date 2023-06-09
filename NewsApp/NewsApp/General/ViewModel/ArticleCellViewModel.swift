@@ -11,7 +11,7 @@ final class ArticleCellViewModel: TableCollectionViewItemsProtocol {
     //MARK: -- Properties
     let title: String
     let description: String
-    let imageUrl: String
+    let imageUrl: String?
     var date: String
     var imageData: Data?
     
